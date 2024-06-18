@@ -1,0 +1,44 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: GitRepository
+metadata:
+  name: kubeflow-instance
+  namespace: ${releaseNamespace}
+spec:
+  interval: 1m0s
+  ref:
+    tag: v1.6.1
+  timeout: 15m0s
+  url: https://github.com/kubeflow/manifests
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: kubeflow-instance
+  namespace: ${releaseNamespace}
+spec:
+  patches:
+  - patch: |
+      - op: replace
+        path: /spec/type
+        value: LoadBalancer
+    target:
+      kind: Service
+      name: istio-ingressgateway
+      namespace: istio-system
+  - patch: |
+     - op: add
+       path: /metadata/namespace
+       value: default
+    target:
+      kind: ConfigMap
+      name: default-install-config.*
+  interval: 6h
+  timeout: 15m0s
+  path: ./example
+  prune: true
+  serviceAccountName: ${releaseNamespace}
+  sourceRef:
+   kind: GitRepository
+   name: kubeflow-instance
+   namespace: ${releaseNamespace}
