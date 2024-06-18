@@ -22,7 +22,7 @@ metadata:
 spec:
   interval: 1m0s
   ref:
-    branch: master
+    branch: main
   timeout: 1m0s
   url: https://github.com/arbhoj/gs-kubeflow
 EOF
