@@ -24,6 +24,6 @@ spec:
   ref:
     branch: master
   timeout: 1m0s
-  url: https://github.com/d2iq-ps/gs-kubeflow
+  url: https://github.com/arbhoj/gs-kubeflow
 EOF
 ```
