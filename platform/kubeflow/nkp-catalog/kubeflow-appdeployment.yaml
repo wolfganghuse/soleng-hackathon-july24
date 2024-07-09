@@ -1,0 +1,9 @@
+apiVersion: apps.kommander.d2iq.io/v1alpha3
+kind: AppDeployment
+metadata:
+  name: kubeflow-1
+  namespace: kubeflow-project
+spec:
+  appRef:
+    name: kubeflow-1.8.1
+    kind: App

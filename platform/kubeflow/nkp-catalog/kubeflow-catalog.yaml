@@ -1,0 +1,14 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: kubeflow-instance
+  namespace: kubeflow-project
+  labels:
+    kommander.d2iq.io/gitapps-gitrepository-type: catalog
+    kommander.d2iq.io/gitrepository-type: catalog
+spec:
+  interval: 1m0s
+  ref:
+    branch: main
+  timeout: 15m0s
+  url: https://github.com/arbhoj/gs-kubeflow
