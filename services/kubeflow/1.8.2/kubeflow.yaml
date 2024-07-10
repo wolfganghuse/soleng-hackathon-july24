@@ -5,8 +5,6 @@ metadata:
   name: kubeflow-instance
   namespace: ${releaseNamespace}
 spec:
-  ignore: |
-    /common/dex/base/crds.yaml
   interval: 1m0s
   ref:
     tag: v1.8.1
