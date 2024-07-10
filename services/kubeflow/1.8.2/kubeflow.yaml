@@ -19,6 +19,7 @@ metadata:
   name: kubeflow-instance
   namespace: ${releaseNamespace}
 spec:
+  wait: true
   patches:
   - patch: |
       - op: replace
@@ -37,7 +38,11 @@ spec:
       name: default-install-config.*
   interval: 6h
   timeout: 15m0s
-  path: ./example
+  path: ./
+  components:
+  - ./common/istio-1-22/istio-crds/base
+  - ./common/istio-1-22/istio-namespace/base
+  - ./common/istio-1-22/istio-install/overlays/oauth2-proxy
   prune: true
   serviceAccountName: ${releaseNamespace}
   sourceRef:
