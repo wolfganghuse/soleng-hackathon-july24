@@ -34,6 +34,26 @@ spec:
     target:
       kind: ConfigMap
       name: default-install-config.*
+  - patch: | 
+      apiVersion: networking.istio.io/v1beta1
+      kind: Gateway
+      metadata:
+        name: istio-ingressgateway
+      spec:
+        servers:
+        - hosts:
+          - '*'
+          port:
+            name: https
+            number: 443
+            protocol: HTTPS
+          tls:
+            credentailName: kubeflow-tls
+            mode: Simple
+    target:
+      kind: Gateway
+      name: istio-ingressgateway
+      namespace: istio-system      
   interval: 6h
   timeout: 15m0s
   path: ./example
@@ -42,3 +62,18 @@ spec:
    kind: GitRepository
    name: kubeflow-instance
    namespace: ${releaseNamespace}
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: kubeflow-tls
+  namespace: istio-system
+spec:
+  commonName: kubeflow-tls.istio-system.svc
+  ipAddresses:
+  # Replace var NODE_IP with the ip address of any cluster node or the LoadBalancer Service IP
+  - 10.122.7.207
+  issuerRef:
+    kind: ClusterIssuer
+    name: selfsigned-issuer
+  secretName: selfsigned-cert
