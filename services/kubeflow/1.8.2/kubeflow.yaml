@@ -48,7 +48,7 @@ spec:
             number: 443
             protocol: HTTPS
           tls:
-            credentailName: kubeflow-tls
+            credentialName: kubeflow-tls
             mode: Simple
     target:
       kind: Gateway
