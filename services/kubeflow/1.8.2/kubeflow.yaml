@@ -38,32 +38,6 @@ spec:
       apiVersion: networking.istio.io/v1beta1
       kind: Gateway
       metadata:
-        name: istio-ingressgateway
-      spec:
-        servers:
-        - hosts:
-          - '*'
-          port:
-            name: http
-            number: 80
-            protocol: HTTP        
-        - hosts:
-          - '*'
-          port:
-            name: https
-            number: 443
-            protocol: HTTPS
-          tls:
-            credentialName: kubeflow-tls
-            mode: SIMPLE
-    target:
-      kind: Gateway
-      name: istio-ingressgateway
-      namespace: istio-system
-  - patch: | 
-      apiVersion: networking.istio.io/v1beta1
-      kind: Gateway
-      metadata:
         name: kubeflow-gateway
       spec:
         servers:
