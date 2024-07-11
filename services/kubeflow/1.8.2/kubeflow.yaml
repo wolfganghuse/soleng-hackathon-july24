@@ -49,7 +49,7 @@ spec:
             protocol: HTTPS
           tls:
             credentialName: kubeflow-tls
-            mode: Simple
+            mode: SIMPLE
     target:
       kind: Gateway
       name: istio-ingressgateway
