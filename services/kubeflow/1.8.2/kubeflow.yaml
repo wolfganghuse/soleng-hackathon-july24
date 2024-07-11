@@ -53,7 +53,27 @@ spec:
     target:
       kind: Gateway
       name: istio-ingressgateway
-      namespace: istio-system      
+      namespace: istio-system
+  - patch: | 
+      apiVersion: networking.istio.io/v1beta1
+      kind: Gateway
+      metadata:
+        name: kubeflow-gateway
+      spec:
+        servers:
+        - hosts:
+          - '*'
+          port:
+            name: https
+            number: 443
+            protocol: HTTPS
+          tls:
+            credentialName: kubeflow-tls
+            mode: SIMPLE
+    target:
+      kind: Gateway
+      name: kubeflow-gateway
+      namespace: kubeflow       
   interval: 6h
   timeout: 15m0s
   path: ./example
@@ -77,3 +97,18 @@ spec:
     kind: ClusterIssuer
     name: selfsigned-issuer
   secretName: kubeflow-tls
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: kubeflow-tls
+  namespace: kubeflow
+spec:
+  commonName: kubeflow-tls.kubeflow.svc
+  ipAddresses:
+  # Replace var NODE_IP with the ip address of any cluster node or the LoadBalancer Service IP
+  - 10.122.7.207
+  issuerRef:
+    kind: ClusterIssuer
+    name: selfsigned-issuer
+  secretName: kubeflow-tls  
