@@ -113,6 +113,10 @@ spec:
       kind: Deployment
       name: ml-pipeline-ui
   - patch: |
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: ml-pipeline
       spec:
         template:
           spec:
@@ -139,6 +143,37 @@ spec:
     target:
       kind: Deployment
       name: ml-pipeline
+  - patch: |
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: metadata-writer
+      spec:
+        template:
+          metadata:
+            labels:
+              app: metadata-writer
+          spec:
+            containers:
+            - name: main
+              env:
+              - name: OBJECT_STORE_ENDPOINT
+                valueFrom:
+                  configMapKeyRef:
+                    name: pipeline-install-config
+                    key: objStoreHost
+              - name: OBJECT_STORE_BUCKET
+                valueFrom:
+                  configMapKeyRef:
+                    name: pipeline-install-config
+                    key: bucketName
+              - name: S3_COMPATIBLE_OBJECT_STORE
+                value: "true"  
+    target:
+      kind: Deployment
+      name: metadata-writer
+  - patch: |
+    target:        
   interval: 6h
   timeout: 15m0s
   path: ./example
