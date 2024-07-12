@@ -37,3 +37,4 @@ data:
         key: secretkey
   executor: |
     imagePullPolicy: IfNotPresent
+    foo: bar
