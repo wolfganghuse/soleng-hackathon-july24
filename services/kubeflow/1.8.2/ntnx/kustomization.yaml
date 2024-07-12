@@ -2,8 +2,9 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: kubeflow
 patchesStrategicMerge:
-- ntnx-config-patch.yaml
 - delete-minio.yaml
+patches:
+- ntnx-config-patch.yaml
 generatorOptions:
   # mlpipeline-minio-artifact needs to be referred by exact name
   disableNameSuffixHash: true
