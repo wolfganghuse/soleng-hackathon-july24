@@ -26,9 +26,6 @@ spec:
       kind: Secret
       metadata:
         name: mlpipeline-minio-artifact
-    target:
-      kind: Secret
-      name: mlpipeline-minio-artifact    
   - patch: |
       $patch: delete   
       apiVersion: v1
