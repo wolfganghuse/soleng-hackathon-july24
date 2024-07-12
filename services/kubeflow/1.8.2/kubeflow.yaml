@@ -112,16 +112,6 @@ spec:
     target:
       kind: Deployment
       name: ml-pipeline-ui
-  - patch: |
-    target:
-  - patch: |
-    target:
-  - patch: |
-    target:    
-  - patch: |
-    target:
-  - patch: |
-    target:    
   interval: 6h
   timeout: 15m0s
   path: ./example
