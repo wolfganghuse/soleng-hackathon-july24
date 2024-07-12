@@ -112,6 +112,33 @@ spec:
     target:
       kind: Deployment
       name: ml-pipeline-ui
+  - patch: |
+      spec:
+        template:
+          spec:
+            containers:
+              - env:
+                  - name: OBJECTSTORECONFIG_HOST
+                    valueFrom:
+                      configMapKeyRef:
+                        name: pipeline-install-config
+                        key: objStoreHost
+                  - name: OBJECTSTORECONFIG_BUCKETNAME
+                    valueFrom:
+                      configMapKeyRef:
+                        name: pipeline-install-config
+                        key: bucketName
+                  - name: OBJECTSTORECONFIG_REGION
+                    valueFrom:
+                      configMapKeyRef:
+                        name: pipeline-install-config
+                        key: objStoreRegion
+                  - name: OBJECTSTORECONFIG_PORT
+                    value: ""
+                name: ml-pipeline-api-server
+    target:
+      kind: Deployment
+      name: ml-pipeline
   interval: 6h
   timeout: 15m0s
   path: ./example
