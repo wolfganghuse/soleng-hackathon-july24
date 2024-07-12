@@ -18,6 +18,7 @@ metadata:
   namespace: ${releaseNamespace}
 spec:
   wait: true
+  retryInterval: 5m  
   patches:
   - patch: |
       $patch: delete   
