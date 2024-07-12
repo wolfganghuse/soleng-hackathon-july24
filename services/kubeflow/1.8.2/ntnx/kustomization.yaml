@@ -7,7 +7,7 @@ generatorOptions:
 configMapGenerator:
 - name: pipeline-install-config
   env: pipeline-install-config.env
-  behavior: merge
+  #behavior: merge
   namespace: kubeflow  
 - name: workflow-controller-configmap
   behavior: replace
