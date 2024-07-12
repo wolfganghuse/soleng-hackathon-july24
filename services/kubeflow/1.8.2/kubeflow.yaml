@@ -22,6 +22,15 @@ spec:
   - patch: |
       $patch: delete   
       apiVersion: v1
+      kind: Secret
+      metadata:
+        name: mlpipeline-minio-artifact
+    target:
+      kind: Secret
+      name: mlpipeline-minio-artifact    
+  - patch: |
+      $patch: delete   
+      apiVersion: v1
       kind: ConfigMap
       metadata:
         name: workflow-controller-configmap
@@ -229,18 +238,7 @@ spec:
         objStoreRegion: us-east-1
     target: 
       kind: ConfigMap
-      name: pipeline-install-config
-  - patch: |
-      apiVersion: v1
-      kind: Secret
-      metadata:
-        name: mlpipeline-minio-artifact
-      stringData:
-        accesskey: sksVdwDDnQtJpHSq47x19gocaxudEkOL
-        secretkey: 07MFVUBFytiTra7tUUs9ZT0kXOGEwSmq
-    target:
-      kind: Secret
-      name: mlpipeline-minio-artifact         
+      name: pipeline-install-config       
   interval: 6h
   timeout: 15m0s
   path: ./example
@@ -250,32 +248,4 @@ spec:
    name: kubeflow-instance
    namespace: ${releaseNamespace}
 ---
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: kubeflow-tls
-  namespace: istio-system
-spec:
-  commonName: istio-ingressgateway.istio-system.svc
-  ipAddresses:
-  # Replace var NODE_IP with the ip address of any cluster node or the LoadBalancer Service IP
-  - 10.122.7.207
-  issuerRef:
-    kind: ClusterIssuer
-    name: selfsigned-issuer
-  secretName: kubeflow-tls
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: kubeflow-tls
-  namespace: kubeflow
-spec:
-  commonName: istio-ingressgateway.istio-system.svc
-  ipAddresses:
-  # Replace var NODE_IP with the ip address of any cluster node or the LoadBalancer Service IP
-  - 10.122.7.207
-  issuerRef:
-    kind: ClusterIssuer
-    name: selfsigned-issuer
-  secretName: kubeflow-tls  
+

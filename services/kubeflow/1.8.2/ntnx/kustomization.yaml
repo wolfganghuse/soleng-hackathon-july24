@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - kubeflow-pipelines-profile-controller-code-cm.yaml
   - workflow-controller-configmap.yaml
+  - kubeflow-cert.yaml
