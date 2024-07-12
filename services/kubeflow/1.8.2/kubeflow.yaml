@@ -25,7 +25,18 @@ spec:
       kind: Deployment
       metadata:
         name: minio
-        namespace: kubeflow 
+  - patch: |-
+      $patch: delete
+      apiVersion: v1
+      kind: Service
+      metadata:
+        name: minio-service
+  - patch: |-
+      $patch: delete
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
+        name: minio-pvc  
   - patch: |
       - op: replace
         path: /spec/type
