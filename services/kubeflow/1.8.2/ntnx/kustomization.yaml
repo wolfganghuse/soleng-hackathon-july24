@@ -4,6 +4,7 @@ namespace: kubeflow
 generatorOptions:
   # mlpipeline-minio-artifact needs to be referred by exact name
   disableNameSuffixHash: true
+  namespace: kubeflow
 configMapGenerator:
 - name: pipeline-install-config
   env: pipeline-install-config.env
