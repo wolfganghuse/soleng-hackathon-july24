@@ -10,7 +10,7 @@ namespace: kubeflow
       metadata:
         name: minio
         namespace: kubeflow
-        
+
 - patches:
   - patch: |-
       $patch: delete
@@ -26,13 +26,6 @@ namespace: kubeflow
       kind: PersistentVolumeClaim
       metadata:
         name: minio-pvc
-        namespace: kubeflow
-- patches:
-  - patch: |-
-      $patch: delete  
-      kind: ConfigMap
-      metadata:
-        name: pipeline-install-config
-        namespace: kubeflow      
+        namespace: kubeflow   
 
 

@@ -13,21 +13,21 @@ configMapGenerator:
   #behavior: merge
   namespace: kubeflow  
 - name: workflow-controller-configmap
-  behavior: replace
   files:
   - config
+  namespace: kubeflow    
 - name: ml-pipeline-ui-configmap
-  behavior: replace
   files:
   - viewer-pod-template.json
+  namespace: kubeflow 
 - name: kubeflow-pipelines-profile-controller-code
-  behavior: replace
   files:
   - sync.py
+  namespace: kubeflow 
 secretGenerator:
 - name: mlpipeline-minio-artifact
   env: object-store-secrets.env
-  behavior: replace
+  namespace: kubeflow 
 # Identifier for application manager to apply ownerReference.
 # The ownerReference ensures the resources get garbage collected
 # when application is deleted.
