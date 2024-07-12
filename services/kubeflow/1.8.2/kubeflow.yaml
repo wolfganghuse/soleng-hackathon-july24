@@ -171,9 +171,7 @@ spec:
                 value: "true"  
     target:
       kind: Deployment
-      name: metadata-writer
-  - patch: |
-    target:        
+      name: metadata-writer     
   interval: 6h
   timeout: 15m0s
   path: ./example
