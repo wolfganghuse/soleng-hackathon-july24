@@ -1,4 +1,12 @@
 apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  generation: 1
+  name: kubeflow-selfsigned-issuer
+spec:
+  selfSigned: {}
+---
+apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: kubeflow-tls
@@ -10,5 +18,5 @@ spec:
   - 10.122.7.207
   issuerRef:
     kind: ClusterIssuer
-    name: selfsigned-issuer
+    name: kubeflow-selfsigned-issuer
   secretName: kubeflow-tls
