@@ -83,7 +83,6 @@ spec:
       kind: Deployment
       metadata:
         name: ml-pipeline-ui
-        namespace: kubeflow 
       spec:
         template:
           spec:
@@ -111,10 +110,8 @@ spec:
                         name: pipeline-install-config
                         key: objStoreRegion  
     target:
-      apiVersion: apps/v1
       kind: Deployment
-      metadata:
-        name: ml-pipeline-ui
+      name: ml-pipeline-ui
   - patch: |
     target:
   - patch: |
