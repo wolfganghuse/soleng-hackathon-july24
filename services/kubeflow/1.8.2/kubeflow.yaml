@@ -20,6 +20,14 @@ spec:
   wait: true
   patches:
   - patch: |
+      $patch: delete 
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: minio
+        namespace: kubeflow  
+$patch: delete  
+  - patch: |
       - op: replace
         path: /spec/type
         value: LoadBalancer
