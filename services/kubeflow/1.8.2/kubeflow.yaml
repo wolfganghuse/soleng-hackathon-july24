@@ -18,14 +18,24 @@ metadata:
   namespace: ${releaseNamespace}
 spec:
   wait: true
-  retryInterval: 5m  
+  retryInterval: 5m
+  images:
+  - name: gcr.io/ml-pipeline/api-server
+    newName: quay.io/ajaynagar/kubeflow-ntnx/kfp-backend
+    newTag: 2.0.3
+  - name: gcr.io/ml-pipeline/frontend
+    newName: quay.io/ajaynagar/kubeflow-ntnx/kfp-frontend
+    newTag: 2.0.3
+  - name: gcr.io/ml-pipeline/metadata-writer
+    newName: quay.io/ajaynagar/kubeflow-ntnx/kfp-metadata-writer
+    newTag: 2.0.3
   patches:
-  #- patch: |
-      #$patch: delete 
-      #apiVersion: v1
-      #kind: Configmap
-      #metadata:
-       # name: ml-pipeline-ui-configmap
+  - patch: |
+      $patch: delete 
+      apiVersion: v1
+      kind: Configmap
+      metadata:
+        name: ml-pipeline-ui-configmap
   - patch: |
       $patch: delete   
       apiVersion: v1
@@ -223,9 +233,9 @@ spec:
                     name: pipeline-install-config
                     key: objStoreHost
               - name: FRONTEND_TAG
-                value: 2.0.5
+                value: 2.0.3
               - name: FRONTEND_IMAGE
-                value: gcr.io/ml-pipeline/frontend
+                value: quay.io/ajaynagar/kubeflow-ntnx/kfp-frontend
     target:
       kind: Deployment
       name: kubeflow-pipelines-profile-controller
