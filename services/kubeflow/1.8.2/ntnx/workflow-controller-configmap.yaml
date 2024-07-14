@@ -15,7 +15,8 @@ data:
     s3:
       endpoint: "10.122.7.101"
       bucket: "mlpipeline"
-      region: "us-west-1"
+      keyPrefix: artifacts
+      #region: "us-west-1" # This breaks the nutanix flow
       # keyFormat is a format pattern to define how artifacts will be organized in a bucket.
       # It can reference workflow metadata variables such as workflow.namespace, workflow.name,
       # pod.name. Can also use strftime formating of workflow.creationTimestamp so that workflow
