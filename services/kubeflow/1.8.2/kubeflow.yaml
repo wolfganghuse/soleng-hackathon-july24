@@ -20,17 +20,12 @@ spec:
   wait: true
   retryInterval: 5m  
   patches:
-  - patch: |
-      $patch: delete   
-      apiVersion: v1
-      kind: Configmap
-      metadata:
-        name: ml-pipeline-ui-configmap
-        namespace: kubeflow
-      target:
-      kind: Configmap
-      name: ml-pipeline-ui-configmap
-      namespace: kubeflow     
+  #- patch: |
+      #$patch: delete   
+      #apiVersion: v1
+      #kind: Configmap
+      #metadata:
+      #  name: ml-pipeline-ui-configmap
   - patch: |
       $patch: delete   
       apiVersion: v1
