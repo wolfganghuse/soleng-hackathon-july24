@@ -30,12 +30,12 @@ spec:
     newName: quay.io/ajaynagar/kubeflow-ntnx/kfp-metadata-writer
     newTag: 2.0.3
   patches:
-  #- patch: |
-      #$patch: delete 
-      #apiVersion: v1
-      #kind: Configmap
-      #metadata:
-       # name: ml-pipeline-ui-configmap
+  - patch: |      
+      $patch: delete   
+      apiVersion: v1
+      kind: ConfigMap
+      metadata:
+        name: ml-pipeline-ui-configmap
   - patch: |
       $patch: delete   
       apiVersion: v1
