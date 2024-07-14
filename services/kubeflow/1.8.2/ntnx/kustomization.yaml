@@ -6,3 +6,4 @@ resources:
   - workflow-controller-configmap.yaml
   - kubeflow-cert.yaml
   - mlpipeline-minio-artifact-secret.yaml
+  - ml-pipeline-ui-configmap.yaml
