@@ -32,12 +32,12 @@ spec:
       kind: ConfigMap
       metadata:
         name: workflow-controller-configmap
-  - patch: |
-      $patch: delete 
-      apiVersion: v1
-      kind: ConfigMap
-      metadata:
-        name: kubeflow-pipelines-profile-controller-code
+ # - patch: |
+ #     $patch: delete 
+ #     apiVersion: v1
+ #     kind: ConfigMap
+ #     metadata:
+ #       name: kubeflow-pipelines-profile-controller-code
   - patch: |
       $patch: delete 
       apiVersion: apps/v1
@@ -217,9 +217,9 @@ spec:
                     name: pipeline-install-config
                     key: objStoreHost
               - name: FRONTEND_TAG
-                value: 2.0.3
+                value: 2.0.5
               - name: FRONTEND_IMAGE
-                value: quay.io/ajaynagar/kubeflow-ntnx/kfp-frontend
+                value: gcr.io/ml-pipeline/frontend
     target:
       kind: Deployment
       name: kubeflow-pipelines-profile-controller
