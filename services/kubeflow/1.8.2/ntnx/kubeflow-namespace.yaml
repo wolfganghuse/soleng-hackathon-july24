@@ -4,3 +4,8 @@ metadata:
   name: kubeflow
   labels:
     istio-injection: enabled
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: istio
