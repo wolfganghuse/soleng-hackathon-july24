@@ -23,7 +23,7 @@ spec:
   - patch: |
       $patch: delete   
       apiVersion: v1
-      kind: Secret
+      kind: Configmap
       metadata:
         name: ml-pipeline-ui-configmap
   - patch: |
