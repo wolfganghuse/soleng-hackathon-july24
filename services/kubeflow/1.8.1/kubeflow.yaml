@@ -271,6 +271,9 @@ spec:
       - kind: ServiceAccount
         name: dex
         namespace: kommander
+      - kind: ServiceAccount
+        name: dex
+        namespace: auth        
     target:
       kind: ClusterRoleBinding
       name: dex
