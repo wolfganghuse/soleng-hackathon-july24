@@ -36,7 +36,7 @@ spec:
       kind: ConfigMap
       metadata:
         name: kfp-launcher
-  - path: |
+  - patch: |
       $patch: delete   
       apiVersion: v1
       kind: ConfigMap
