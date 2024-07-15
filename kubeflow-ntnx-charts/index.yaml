@@ -10,6 +10,6 @@ entries:
     name: kubeflow-ntnx
     type: application
     urls:
-    - https://raw.githubusercontent.com/arbhoj/gs-kubeflow/helmtest/kubeflow-ntnx-charts/index.yaml/kubeflow-ntnx-1.8.1.tgz
+    - https://raw.githubusercontent.com/arbhoj/gs-kubeflow/helmtest/kubeflow-ntnx-charts/kubeflow-ntnx-1.8.1.tgz
     version: 1.8.1
 generated: "2024-07-14T23:45:37.985237-04:00"
