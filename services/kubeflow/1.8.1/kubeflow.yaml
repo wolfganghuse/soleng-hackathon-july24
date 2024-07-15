@@ -31,6 +31,12 @@ spec:
     newTag: 2.0.3
   patches:
   - patch: |      
+      $patch: delete 
+      apiVersion: v1
+      kind: ConfigMap
+      metadata:
+        name: kfp-launcher         
+  - path: |      
       $patch: delete   
       apiVersion: v1
       kind: ConfigMap
