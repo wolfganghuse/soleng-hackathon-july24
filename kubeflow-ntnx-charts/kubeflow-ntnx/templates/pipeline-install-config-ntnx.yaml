@@ -1,0 +1,32 @@
+# Hack to populate Object Store Details using Helm as pipeline-install-config is owned by the core kustomization and can't be
+# deleted from there due to variabledependencies. See "apps/pipeline/upstream/base/installs/generic/kustomization.yaml" in the
+# core kustomization repo
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+  name: pipeline-install-config-ntnx
+  namespace: kubeflow
+data:
+  objStoreHost: {{ .Values.kubeflowIngressIP }}
+  bucketName: {{ .Values.bucket }}
+  objStoreRegion: {{ .Values.objStoreRegion }}
+  insecure: "true"
+  defaultPipelineRoot: "s3://{{ .Values.bucket }}/{{ .Values.defaultPipelineRootPath }}"  
+  ConMaxLifeTime: 120s
+  DEFAULT_CACHE_STALENESS: ""
+  MAXIMUM_CACHE_STALENESS: ""
+  appName: pipeline
+  appVersion: 2.0.5
+  autoUpdatePipelineDefaultVersion: "true"
+  cacheDb: cachedb
+  cacheImage: gcr.io/google-containers/busybox
+  cacheNodeRestrictions: "false"
+  cronScheduleTimezone: UTC
+  dbHost: mysql
+  dbPort: "3306"
+  dbType: mysql
+  mlmdDb: metadb
+  mysqlHost: mysql
+  mysqlPort: "3306"
+  pipelineDb: mlpipeline

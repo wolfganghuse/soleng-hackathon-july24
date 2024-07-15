@@ -30,32 +30,32 @@ spec:
     newName: quay.io/ajaynagar/kubeflow-ntnx/kfp-metadata-writer
     newTag: 2.0.3
   patches:
-  - patch: |      
+  - patch: |
       $patch: delete 
       apiVersion: v1
       kind: ConfigMap
       metadata:
-        name: kfp-launcher         
-  - path: |      
+        name: kfp-launcher
+  - path: |
       $patch: delete   
       apiVersion: v1
       kind: ConfigMap
       metadata:
         name: ml-pipeline-ui-configmap
   - patch: |
-      $patch: delete   
+      $patch: delete
       apiVersion: v1
       kind: Secret
       metadata:
         name: mlpipeline-minio-artifact
   - patch: |
-      $patch: delete   
+      $patch: delete
       apiVersion: v1
       kind: ConfigMap
       metadata:
         name: workflow-controller-configmap
   - patch: |
-      $patch: delete 
+      $patch: delete
       apiVersion: v1
       kind: ConfigMap
       metadata:
@@ -77,7 +77,7 @@ spec:
       apiVersion: v1
       kind: PersistentVolumeClaim
       metadata:
-        name: minio-pvc  
+        name: minio-pvc
   - patch: |
       - op: replace
         path: /spec/type
@@ -105,7 +105,7 @@ spec:
           port:
             name: http
             number: 80
-            protocol: HTTP        
+            protocol: HTTP
         - hosts:
           - '*'
           port:
@@ -211,12 +211,12 @@ spec:
                     name: pipeline-install-config-ntnx
                     key: bucketName
               - name: S3_COMPATIBLE_OBJECT_STORE
-                value: "true"  
+                value: "true"
     target:
       kind: Deployment
       name: metadata-writer
       namespace: kubeflow
-  - patch: |      
+  - patch: |
       apiVersion: apps/v1
       kind: Deployment
       metadata:
@@ -261,7 +261,19 @@ spec:
         objStoreRegion: us-east-1
     target: 
       kind: ConfigMap
-      name: pipeline-install-config  
+      name: pipeline-install-config
+  - patch: |
+      apiVersion: rbac.authorization.k8s.io/v1
+      kind: ClusterRoleBinding
+      metadata:
+        name: dex
+      subjects:
+      - kind: ServiceAccount
+        name: dex
+        namespace: kommander
+    target:
+      kind: ClusterRoleBinding
+      name: dex
   interval: 6h
   timeout: 15m0s
   path: ./example
