@@ -1,5 +1,13 @@
 displayName: kubeflow
-description: Kubeflow is a free and open-source platform for machine learning on Kubernetes.
+description: |
+ Kubeflow is a free and open-source platform for machine learning on Kubernetes. 
+ Example values for configuring Nutanix Object store data for this application:
+ kubeflowIngressIP: 10.122.7.101
+ bucket: mlpipeline
+ accesskey: sksVdwDDnQtJpHSq47x19gocaxudEkOL
+ secretkey: 07MFVUBFytiTra7tUUs9ZT0kXOGEwSmq
+ objStoreRegion: us-east-1
+ defaultPipelineRootPath: "/artifacts/kubeflow-user-example-com"
 category:
   - Data Science
 type: catalog
