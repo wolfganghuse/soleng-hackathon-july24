@@ -143,12 +143,12 @@ spec:
                   - name: AWS_S3_ENDPOINT
                     valueFrom:
                       configMapKeyRef:
-                        name: pipeline-install-config
+                        name: pipeline-install-config-ntnx
                         key: objStoreHost
                   - name: AWS_REGION
                     valueFrom:
                       configMapKeyRef:
-                        name: pipeline-install-config
+                        name: pipeline-install-config-ntnx
                         key: objStoreRegion  
     target:
       kind: Deployment
@@ -167,17 +167,17 @@ spec:
                   - name: OBJECTSTORECONFIG_HOST
                     valueFrom:
                       configMapKeyRef:
-                        name: pipeline-install-config
+                        name: pipeline-install-config-ntnx
                         key: objStoreHost
                   - name: OBJECTSTORECONFIG_BUCKETNAME
                     valueFrom:
                       configMapKeyRef:
-                        name: pipeline-install-config
+                        name: pipeline-install-config-ntnx
                         key: bucketName
                   - name: OBJECTSTORECONFIG_REGION
                     valueFrom:
                       configMapKeyRef:
-                        name: pipeline-install-config
+                        name: pipeline-install-config-ntnx
                         key: objStoreRegion
                   - name: OBJECTSTORECONFIG_PORT
                     value: ""
@@ -203,12 +203,12 @@ spec:
               - name: OBJECT_STORE_ENDPOINT
                 valueFrom:
                   configMapKeyRef:
-                    name: pipeline-install-config
+                    name: pipeline-install-config-ntnx
                     key: objStoreHost
               - name: OBJECT_STORE_BUCKET
                 valueFrom:
                   configMapKeyRef:
-                    name: pipeline-install-config
+                    name: pipeline-install-config-ntnx
                     key: bucketName
               - name: S3_COMPATIBLE_OBJECT_STORE
                 value: "true"  
@@ -231,17 +231,23 @@ spec:
               - name: MINIO_SERVICE_REGION
                 valueFrom:
                   configMapKeyRef:
-                    name: pipeline-install-config
+                    name: pipeline-install-config-ntnx
                     key: objStoreRegion
               - name: MINIO_SERVICE_HOST
                 valueFrom:
                   configMapKeyRef:
-                    name: pipeline-install-config
+                    name: pipeline-install-config-ntnx
                     key: objStoreHost
               - name: FRONTEND_TAG
                 value: 2.0.3
               - name: FRONTEND_IMAGE
                 value: quay.io/ajaynagar/kubeflow-ntnx/kfp-frontend
+              - name: KFP_DEFAULT_PIPELINE_ROOT
+                valueFrom:
+                  configMapKeyRef:
+                    key: defaultPipelineRoot
+                    name: pipeline-install-config-ntnx
+                    optional: true
     target:
       kind: Deployment
       name: kubeflow-pipelines-profile-controller
@@ -255,7 +261,7 @@ spec:
         objStoreRegion: us-east-1
     target: 
       kind: ConfigMap
-      name: pipeline-install-config           
+      name: pipeline-install-config  
   interval: 6h
   timeout: 15m0s
   path: ./example
