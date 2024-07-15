@@ -30,12 +30,6 @@ spec:
     newName: quay.io/ajaynagar/kubeflow-ntnx/kfp-metadata-writer
     newTag: 2.0.3
   patches:
-  - patch: |
-      $patch: delete
-      apiVersion: v1
-      kind: ConfigMap
-      metadata:
-        name: pipeline-install-config 
   - patch: |      
       $patch: delete   
       apiVersion: v1
@@ -245,7 +239,17 @@ spec:
     target:
       kind: Deployment
       name: kubeflow-pipelines-profile-controller
-      namespace: kubeflow     
+      namespace: kubeflow
+  - patch: |
+      apiVersion: v1
+      kind: ConfigMap
+      metadata:
+        name: pipeline-install-config
+      data:
+        objStoreRegion: us-east-1
+    target: 
+      kind: ConfigMap
+      name: pipeline-install-config           
   interval: 6h
   timeout: 15m0s
   path: ./example
