@@ -315,5 +315,7 @@ spec:
   upgrade:
     remediation:
       retries: 30
-  releaseName: kubeflow
+  valuesFrom:
+    - kind: ConfigMap
+      name: kubeflow-1.8.1-ntnx-defaults
   targetNamespace: ${releaseNamespace}

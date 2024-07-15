@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kubeflow-1.8.1-ntnx-defaults
+  namespace: ${releaseNamespace}
+  values.yaml: |-
+    kubeflowIngressIP: 10.122.7.101
+    bucket: mlpipeline
+    accesskey: sksVdwDDnQtJpHSq47x19gocaxudEkOL
+    secretkey: 07MFVUBFytiTra7tUUs9ZT0kXOGEwSmq
+    objStoreRegion: us-east-1
+    defaultPipelineRootPath: "/artifacts/kubeflow-user-example-com-default"
