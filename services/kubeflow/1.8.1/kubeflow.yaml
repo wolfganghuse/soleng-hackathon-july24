@@ -262,4 +262,37 @@ spec:
    name: kubeflow-instance
    namespace: ${releaseNamespace}
 ---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: kubeflow-ntnx
+  namespace: ${releaseNamespace}
+spec:
+  interval: 10m
+  url: "${helmMirrorURL:=https://raw.githubusercontent.com/arbhoj/gs-kubeflow/helmtest/kubeflow-ntnx-charts}"
 
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kubeflow-ntnx
+  namespace: ${releaseNamespace}
+spec:
+  chart:
+    spec:
+      chart: kubeflow-ntnx
+      sourceRef:
+        kind: HelmRepository
+        name: kubeflow-ntnx
+        namespace: ${releaseNamespace}
+      version: 1.8.1
+  interval: 15s
+  install:
+    remediation:
+      retries: 30
+    createNamespace: false
+  upgrade:
+    remediation:
+      retries: 30
+  releaseName: kubeflow-ntnx
+  targetNamespace: ${releaseNamespace}

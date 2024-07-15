@@ -15,7 +15,7 @@ spec:
   commonName: istio-ingressgateway.istio-system.svc
   ipAddresses:
   # Replace var NODE_IP with the ip address of any cluster node or the LoadBalancer Service IP
-  - 10.122.7.207
+  - {{ .Values.kubeflowIngressIP }}
   issuerRef:
     kind: ClusterIssuer
     name: kubeflow-selfsigned-issuer
