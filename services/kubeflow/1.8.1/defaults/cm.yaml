@@ -3,6 +3,7 @@ kind: ConfigMap
 metadata:
   name: kubeflow-1.8.1-ntnx-defaults
   namespace: ${releaseNamespace}
+data:  
   values.yaml: |-
     kubeflowIngressIP: 10.122.7.101
     bucket: mlpipeline
