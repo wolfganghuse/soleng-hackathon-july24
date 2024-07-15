@@ -12,7 +12,7 @@ data:
   bucketName: {{ .Values.bucket }}
   objStoreRegion: {{ .Values.objStoreRegion }}
   insecure: "true"
-  defaultPipelineRoot: "s3://{{ .Values.bucket }}/{{ .Values.defaultPipelineRootPath }}"  
+  defaultPipelineRoot: "s3://{{ .Values.bucket }}{{ .Values.defaultPipelineRootPath }}"  
   ConMaxLifeTime: 120s
   DEFAULT_CACHE_STALENESS: ""
   MAXIMUM_CACHE_STALENESS: ""
