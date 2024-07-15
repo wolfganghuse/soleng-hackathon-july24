@@ -263,17 +263,12 @@ spec:
       kind: ConfigMap
       name: pipeline-install-config
   - patch: |
-      apiVersion: rbac.authorization.k8s.io/v1
-      kind: ClusterRoleBinding
-      metadata:
-        name: dex
-      subjects:
-      - kind: ServiceAccount
-        name: dex
-        namespace: kommander
-      - kind: ServiceAccount
-        name: dex
-        namespace: auth        
+    - op: add
+       path: /subjects/-
+       value:
+         kind: ServiceAccount
+         name: dex
+         namespace: kommander   
     target:
       kind: ClusterRoleBinding
       name: dex
@@ -290,7 +285,7 @@ apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: HelmRepository
 metadata:
   name: kubeflow-ntnx
-  namespace: ${releaseNamespace}
+  namespace: kommander-flux
 spec:
   interval: 10m
   url: "${helmMirrorURL:=https://raw.githubusercontent.com/arbhoj/gs-kubeflow/helmtest/kubeflow-ntnx-charts}"
@@ -308,7 +303,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: kubeflow-ntnx
-        namespace: ${releaseNamespace}
+        namespace: kommander-flux
       version: 1.8.1
   interval: 15s
   install:
