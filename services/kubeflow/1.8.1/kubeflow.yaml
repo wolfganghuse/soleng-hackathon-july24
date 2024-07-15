@@ -263,12 +263,12 @@ spec:
       kind: ConfigMap
       name: pipeline-install-config
   - patch: |
-    - op: add
-       path: /subjects/-
-       value:
-         kind: ServiceAccount
-         name: dex
-         namespace: kommander   
+      - op: add
+        path: "/subjects/-"
+        value:
+           kind: ServiceAccount
+           name: dex
+           namespace: kommander
     target:
       kind: ClusterRoleBinding
       name: dex
