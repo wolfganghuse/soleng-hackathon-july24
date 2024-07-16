@@ -26,6 +26,6 @@ spec:
   ref:
     branch: main
   timeout: 1m0s
-  url: https://github.com/arbhoj/gs-kubeflow
+  url: https://github.com/wolfganghuse/soleng-hackathon-july24
 EOF
 ```
