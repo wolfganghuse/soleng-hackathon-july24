@@ -1,0 +1,8 @@
+# Default values for kubeflow-ntnx.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+kubeflowIngressIP: 10.122.7.101
+objStoreHost: objects.romanticism.cloudnative.nvdlab.net
+bucket: mlpipeline
+accesskey: sksVdwDDnQtJpHSq47x19gocaxudEkOL
+secretkey: 07MFVUBFytiTra7tUUs9ZT0kXOGEwSmq

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kubeflow-1.8.1-ntnx-defaults
+  namespace: ${releaseNamespace}
+data:  
+  values.yaml: |-
+    kubeflowIngressIP: 10.122.7.101
+    objStoreHost: objects.romanticism.cloudnative.nvdlab.net
+    bucket: mlpipeline-wolfgang
+    accesskey: sksVdwDDnQtJpHSq47x19gocaxudEkOL
+    secretkey: 07MFVUBFytiTra7tUUs9ZT0kXOGEwSmq
+    objStoreRegion: us-east-1
+    defaultPipelineRootPath: "/artifacts/kubeflow-user-example-com-default"

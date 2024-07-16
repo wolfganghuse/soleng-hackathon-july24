@@ -1,0 +1,22 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  generation: 1
+  name: kubeflow-selfsigned-issuer
+spec:
+  selfSigned: {}
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: kubeflow-tls
+  namespace: istio-system
+spec:
+  commonName: istio-ingressgateway.istio-system.svc
+  ipAddresses:
+  # Replace var NODE_IP with the ip address of any cluster node or the LoadBalancer Service IP
+  - {{ .Values.kubeflowIngressIP }}
+  issuerRef:
+    kind: ClusterIssuer
+    name: kubeflow-selfsigned-issuer
+  secretName: kubeflow-tls
