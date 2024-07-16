@@ -9,7 +9,7 @@
 export NAMESPACE=[your_namespace]
 ````
 
-3. Copy and paste the following manifest into the terminal to deploy to the DKP catalog:
+3. Copy and paste the following manifest into the terminal to deploy to the NKP catalog:
 
 ```bash
 kubectl apply -f - <<EOF
