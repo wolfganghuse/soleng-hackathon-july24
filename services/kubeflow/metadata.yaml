@@ -11,6 +11,7 @@ scope:
 overview: |-
   The Kubeflow project is dedicated to making deployments of machine learning (ML) workflows on Kubernetes simple, portable and scalable.
   ## Example values for configuring Nutanix Object store data for this application:
+
   ```
   kubeflowIngressIP: 10.122.7.101
   objStoreHost: objects.romanticism.cloudnative.nvdlab.net
