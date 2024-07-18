@@ -8,7 +8,7 @@ metadata:
   name: pipeline-install-config-ntnx
   namespace: kubeflow
 data:
-  objStoreHost: {{ .Values.kubeflowIngressIP }}
+  objStoreHost: {{ .Values.objStoreHost }}
   bucketName: {{ .Values.bucket }}
   objStoreRegion: {{ .Values.objStoreRegion }}
   insecure: "true"
