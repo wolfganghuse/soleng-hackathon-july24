@@ -13,7 +13,7 @@ data:
   artifactRepository: |
     archiveLogs: true
     s3:
-      endpoint: "{{ .Values.kubeflowIngressIP }}"
+      endpoint: "{{ .Values.objStoreHost }}"
       bucket: "{{ .Values.bucket }}"
       keyPrefix: artifacts
       #region: "us-west-1" # This breaks the nutanix flow
