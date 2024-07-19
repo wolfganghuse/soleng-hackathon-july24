@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  annotations:
+  namespace: ${releaseNamespace}
   name: llm-llm-claim
 spec:
   accessModes:
