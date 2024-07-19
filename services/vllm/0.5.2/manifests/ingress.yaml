@@ -6,6 +6,7 @@ metadata:
     traefik.ingress.kubernetes.io/router.middlewares: vllm-path-prefix@kubernetescrd
     traefik.ingress.kubernetes.io/router.tls: "true"
   name: vllm-ingress
+  namespace: ${releaseNamespace}
 spec:
   rules:
   - http:
