@@ -15,7 +15,7 @@ metadata:
     traefik.ingress.kubernetes.io/router.tls: "true"
     traefik.ingress.kubernetes.io/router.middlewares: ${workspaceNamespace}-${releaseName}-ingress-redirect@kubernetescrd
   name: ${releaseName}-ingress-redirect
-  namespace: istio-system 
+  namespace: ${workspaceNamespace}
 spec:
   ingressClassName: kommander-traefik
   rules:
