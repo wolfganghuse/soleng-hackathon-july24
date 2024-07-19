@@ -1,0 +1,43 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: ${releaseName}--ingress-redirect
+  namespace: ${workspaceNamespace}
+spec:
+  stripPrefix:
+    prefixes:
+      - /${releaseName}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.middlewares: ${workspaceNamespace}-${releaseName}-ingress-redirect@kubernetescrd
+  name: ${releaseName}-ingress-redirect
+  namespace: istio-system 
+spec:
+  ingressClassName: kommander-traefik
+  rules:
+  - http:
+      paths:
+      - backend:
+          service:
+            name: istio-ingressgateway
+            port:
+              number: 443
+        path: /${releaseName}
+        pathType: Prefix
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ${releaseName}-dashboard
+  namespace: ${releaseNamespace}
+  labels:
+    "kommander.d2iq.io/application": "${releaseName}"
+data:
+  name: "${releaseName}"
+  dashboardLink: "/${releaseName}"
+  docsLink: "https://www.kubeflow.org/docs/"
+  version: 1.8.1
