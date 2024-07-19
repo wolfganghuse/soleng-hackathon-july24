@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: vllm-metrics-servicemonitor
+  labels:
+    prometheus.kommander.d2iq.io/select: "true"
+    monitoring: apps
+    app: vllm
+spec:
+  endpoints:
+  - path: /metrics
+    port: http
+  selector:
+    matchLabels:
+      app: vllm

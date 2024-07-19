@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.kubernetes.io/protocol: https
+    traefik.ingress.kubernetes.io/router.middlewares: namespace: vllm-path-prefix@kubernetescrd
+    traefik.ingress.kubernetes.io/router.tls: "true"
+  name: vllm-ingress
+spec:
+  rules:
+  - http:
+      paths:
+      - backend:
+          service:
+            name: vllm
+            port:
+              number: 80
+        path: /vllm
+        pathType: Prefix
