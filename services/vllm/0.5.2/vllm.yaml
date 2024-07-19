@@ -1,0 +1,172 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vllm
+  namespace: ${releaseNamespace}
+  labels:
+    app: vllm
+spec:
+  strategy:
+    type: Recreate
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vllm
+  template:
+    metadata:
+      labels:
+        app: vllm
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: nvidia.com/gpu.product
+                    operator: In
+                    values:
+                      - NVIDIA-L40S-48C
+                      - NVIDIA-L40S-24C
+      tolerations:
+        - key: "dedicated"
+          operator: "Equal"
+          value: "gpu"
+          effect: "NoSchedule"
+      containers:
+      - name: vllm-container
+        image: vllm/vllm-openai:v0.4.3
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 8000
+            name: api
+        env:
+          - name: HUGGING_FACE_HUB_TOKEN
+            value: ""
+        args:
+          - --enforce-eager
+          - --dtype
+          - half
+          - --model
+          - meta-llama/Meta-Llama-3-8B-Instruct
+          - --api-key
+          - 190E86E1-9B5A-4E79-AF7B-799C24A28E82
+        resources:
+          limits:
+            nvidia.com/gpu: "1"
+          requests:
+            nvidia.com/gpu: "1"
+        volumeMounts:
+          - name: vllm-data-volume
+            mountPath: /root/.cache
+      volumes:
+        - name: vllm-data-volume
+          persistentVolumeClaim:
+            claimName: llm-llm-claim
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vllm
+  namespace: ${releaseNamespace}
+  labels:
+    app: vllm
+spec:
+  selector:
+    app: vllm
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8000
+  type: ClusterIP
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: vllm-metrics-servicemonitor
+  namespace: ${releaseNamespace}
+  labels:
+    prometheus.kommander.d2iq.io/select: "true"
+    monitoring: apps
+    app: vllm
+spec:
+  endpoints:
+  - path: /metrics
+    port: http
+  namespaceSelector:
+    matchNames:
+    - ${releaseNamespace}
+  selector:
+    matchLabels:
+      app: vllm
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  labels:
+    storage: nfs
+  name: llm-volume
+spec:
+  accessModes:
+  - ReadWriteMany
+  capacity:
+    storage: 100Gi
+  claimRef:
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    name: llm-llm-claim
+    namespace: ${releaseNamespace}
+  nfs:
+    path: /llm-model-store
+    server: files.romanticism.cloudnative.nvdlab.net
+  persistentVolumeReclaimPolicy: Retain
+  volumeMode: Filesystem
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  annotations:
+  name: llm-llm-claim
+  namespace: ${releaseNamespace}
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 100Gi
+  selector:
+    matchLabels:
+      storage: nfs
+  storageClassName: ""
+  volumeMode: Filesystem
+  volumeName: llm-volume
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.kubernetes.io/protocol: https
+    traefik.ingress.kubernetes.io/router.middlewares: namespace: ${releaseNamespace}-path-prefix@kubernetescrd
+    traefik.ingress.kubernetes.io/router.tls: "true"
+  name: vllm-ingress
+  namespace: ${releaseNamespace}
+spec:
+  rules:
+  - http:
+      paths:
+      - backend:
+          service:
+            name: vllm
+            port:
+              number: 80
+        path: /vllm
+        pathType: Prefix
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: path-prefix
+  namespace: ${releaseNamespace}
+spec:
+  stripPrefix:
+    prefixes:
+      - /vllm
