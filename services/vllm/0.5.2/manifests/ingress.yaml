@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   annotations:
     ingress.kubernetes.io/protocol: https
-    traefik.ingress.kubernetes.io/router.middlewares: namespace: vllm-path-prefix@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: vllm-path-prefix@kubernetescrd
     traefik.ingress.kubernetes.io/router.tls: "true"
   name: vllm-ingress
 spec:
