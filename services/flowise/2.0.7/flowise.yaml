@@ -2,7 +2,7 @@ apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: HelmRepository
 metadata:
   name: cowboysysop
-  namespace: kommander-flux
+  namespace: ${workspaceNamespace}
 spec:
   interval: 10m
   url: "${helmMirrorURL:=https://cowboysysop.github.io/charts}"
