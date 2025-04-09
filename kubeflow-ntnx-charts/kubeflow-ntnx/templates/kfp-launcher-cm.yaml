@@ -4,4 +4,16 @@ metadata:
   name: kfp-launcher
   namespace: kubeflow  
 data:
-  defaultPipelineRoot: s3://{{ .Values.bucket }}/{{ .Values.defaultPipelineRootPath }}
+  defaultPipelineRoot: s3://{{ .Values.bucket }}
+  providers: |-
+    s3:
+      default:
+        endpoint: {{ .Values.objStoreHost }}
+        disableSSL: true
+        region: {{ .Values.objStoreRegion }}
+        credentials:
+          fromEnv: false
+          secretRef:
+            secretName: mlpipeline-minio-artifact
+            accessKeyKey: accesskey
+            secretKeyKey: secretkey  

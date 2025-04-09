@@ -5,10 +5,10 @@ metadata:
   namespace: ${releaseNamespace}
 data:  
   values.yaml: |-
-    kubeflowIngressIP: 10.122.7.101
-    objStoreHost: objects.romanticism.cloudnative.nvdlab.net
+    kubeflowIngressIP: 10.124.254.228
+    objStoreHost: objects.solengcnai-lab.cloudnative.nvdlab.net
     bucket: mlpipeline-wolfgang
-    accesskey: sksVdwDDnQtJpHSq47x19gocaxudEkOL
-    secretkey: 07MFVUBFytiTra7tUUs9ZT0kXOGEwSmq
+    accesskey: 2_E2scE2hit4p2LdbgXA5tzptA4g-Utk
+    secretkey: DzOwbItwTrt1so91BcltVo1Ef-e9xIYP
     objStoreRegion: us-east-1
-    defaultPipelineRootPath: "/artifacts/kubeflow-user-example-com-default"
+    disableSSL: true

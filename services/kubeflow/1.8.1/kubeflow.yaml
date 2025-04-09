@@ -123,41 +123,6 @@ spec:
       apiVersion: apps/v1
       kind: Deployment
       metadata:
-        name: ml-pipeline-ui
-      spec:
-        template:
-          spec:
-            containers:
-              - name: ml-pipeline-ui
-                env:
-                  - name: AWS_ACCESS_KEY_ID
-                    valueFrom:
-                      secretKeyRef:
-                        name: mlpipeline-minio-artifact
-                        key: accesskey
-                  - name: AWS_SECRET_ACCESS_KEY
-                    valueFrom:
-                      secretKeyRef:
-                        name: mlpipeline-minio-artifact
-                        key: secretkey
-                  - name: AWS_S3_ENDPOINT
-                    valueFrom:
-                      configMapKeyRef:
-                        name: pipeline-install-config-ntnx
-                        key: objStoreHost
-                  - name: AWS_REGION
-                    valueFrom:
-                      configMapKeyRef:
-                        name: pipeline-install-config-ntnx
-                        key: objStoreRegion  
-    target:
-      kind: Deployment
-      name: ml-pipeline-ui
-      namespace: kubeflow
-  - patch: |
-      apiVersion: apps/v1
-      kind: Deployment
-      metadata:
         name: ml-pipeline
       spec:
         template:
@@ -180,88 +145,14 @@ spec:
                         name: pipeline-install-config-ntnx
                         key: objStoreRegion
                   - name: OBJECTSTORECONFIG_PORT
-                    value: ""
+                      configMapKeyRef:
+                        name: pipeline-install-config-ntnx
+                        key: objStorePort
                 name: ml-pipeline-api-server
     target:
       kind: Deployment
       name: ml-pipeline
       namespace: kubeflow
-  - patch: |
-      apiVersion: apps/v1
-      kind: Deployment
-      metadata:
-        name: metadata-writer
-      spec:
-        template:
-          metadata:
-            labels:
-              app: metadata-writer
-          spec:
-            containers:
-            - name: main
-              env:
-              - name: OBJECT_STORE_ENDPOINT
-                valueFrom:
-                  configMapKeyRef:
-                    name: pipeline-install-config-ntnx
-                    key: objStoreHost
-              - name: OBJECT_STORE_BUCKET
-                valueFrom:
-                  configMapKeyRef:
-                    name: pipeline-install-config-ntnx
-                    key: bucketName
-              - name: S3_COMPATIBLE_OBJECT_STORE
-                value: "true"
-    target:
-      kind: Deployment
-      name: metadata-writer
-      namespace: kubeflow
-  - patch: |
-      apiVersion: apps/v1
-      kind: Deployment
-      metadata:
-        name: kubeflow-pipelines-profile-controller
-        namespace: kubeflow
-      spec:
-        template:
-          spec:
-            containers:
-            - name: profile-controller
-              env:
-              - name: MINIO_SERVICE_REGION
-                valueFrom:
-                  configMapKeyRef:
-                    name: pipeline-install-config-ntnx
-                    key: objStoreRegion
-              - name: MINIO_SERVICE_HOST
-                valueFrom:
-                  configMapKeyRef:
-                    name: pipeline-install-config-ntnx
-                    key: objStoreHost
-              - name: FRONTEND_TAG
-                value: 2.0.3
-              - name: FRONTEND_IMAGE
-                value: quay.io/ajaynagar/kubeflow-ntnx/kfp-frontend
-              - name: KFP_DEFAULT_PIPELINE_ROOT
-                valueFrom:
-                  configMapKeyRef:
-                    key: defaultPipelineRoot
-                    name: pipeline-install-config-ntnx
-                    optional: true
-    target:
-      kind: Deployment
-      name: kubeflow-pipelines-profile-controller
-      namespace: kubeflow
-  - patch: |
-      apiVersion: v1
-      kind: ConfigMap
-      metadata:
-        name: pipeline-install-config
-      data:
-        objStoreRegion: us-east-1
-    target: 
-      kind: ConfigMap
-      name: pipeline-install-config
   - patch: |
       - op: add
         path: "/subjects/-"
