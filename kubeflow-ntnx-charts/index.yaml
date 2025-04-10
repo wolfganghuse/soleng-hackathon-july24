@@ -3,13 +3,13 @@ entries:
   kubeflow-ntnx:
   - apiVersion: v2
     appVersion: 1.8.1
-    created: "2025-04-10T09:17:43.307032+02:00"
+    created: "2025-04-10T13:06:13.291885+02:00"
     description: A Helm chart for customizations to the kubeflow deployment to configure
       NutanixObjects as the object store.
-    digest: 03ac314c38e39490672fd9c452c96f9181fdd1ee381286495caeddf13bc04139
+    digest: c12cd942a3c8abf1ff27b3ce4f5aca2c5b3b682893ef66ee5f5cceef231e2628
     name: kubeflow-ntnx
     type: application
     urls:
     - https://raw.githubusercontent.com/wolfganghuse/soleng-hackathon-july24/refs/heads/kubeflow-2025/kubeflow-ntnx-charts/kubeflow-ntnx-1.8.1.tgz
     version: 1.8.1
-generated: "2025-04-10T09:17:43.306257+02:00"
+generated: "2025-04-10T13:06:13.291549+02:00"
