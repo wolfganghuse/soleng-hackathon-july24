@@ -11,4 +11,4 @@ data:
   objStoreHost: {{ .Values.objStoreHost }}
   bucketName: {{ .Values.bucket }}
   objStoreRegion: {{ .Values.objStoreRegion }}
-  insecure: {{ .Values.disableSSL }}
+  insecure: "{{ .Values.disableSSL }}"
