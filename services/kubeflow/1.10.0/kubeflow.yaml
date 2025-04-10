@@ -7,7 +7,7 @@ metadata:
 spec:
   interval: 1m0s
   ref:
-    tag: v1.8.1
+    tag: v1.10.0
   timeout: 15m0s
   url: https://github.com/kubeflow/manifests
 ---
@@ -157,7 +157,7 @@ spec:
         kind: HelmRepository
         name: kubeflow-ntnx
         namespace: kommander-flux
-      version: 1.8.1
+      version: 1.10.0
   interval: 15s
   install:
     remediation:
@@ -168,5 +168,5 @@ spec:
       retries: 30
   valuesFrom:
     - kind: ConfigMap
-      name: kubeflow-1.8.1-ntnx-defaults
+      name: kubeflow-1.10.0-ntnx-defaults
   targetNamespace: ${releaseNamespace}
