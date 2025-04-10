@@ -9,7 +9,7 @@ data:
     s3:
       default:
         endpoint: {{ .Values.objStoreHost }}
-        disableSSL: true
+        disableSSL: "{{ .Values.disableSSL }}"
         region: {{ .Values.objStoreRegion }}
         credentials:
           fromEnv: false
